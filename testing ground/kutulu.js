@@ -27,7 +27,7 @@ class Entity {
     return this.param2;
   }
 }
-const myEntity = new Entity("EXPLORER", 0, 5, 5, 250, 1, 1);
+const myEntity = new Entity("EXPLORER", 0, 7, 4, 250, 1, 1);
 const mySecondEntity = new Entity("WANDERER", 4, 4, 3, 39, 1, 1);
 const myThirdEntity = new Entity("WANDERER", 7, 10, 10, 39, 1, 1);
 
@@ -171,4 +171,27 @@ function generatePossiblePlays(entities) {
   return plays;
 }
 
-console.log(generatePossiblePlays(entitiesList));
+var listOfPlays = generatePossiblePlays(entitiesList);
+console.log(listOfPlays);
+
+listOfPlays.sort(function (a, b) {
+  return b[0] - a[0];
+});
+
+const maxDistToWanderers = listOfPlays[0][0];
+console.log(maxDistToWanderers);
+const topListOfPlays = listOfPlays.filter((a) => a[0] == maxDistToWanderers);
+topListOfPlays.sort(function (a, b) {
+  return a[1] - b[1];
+});
+
+console.log(listOfPlays);
+console.log(topListOfPlays);
+/* console.log(
+  [
+    [5, 1, [8, 4]],
+    [5, 10, [7, 5]],
+  ].sort(function (a, b) {
+    return a[1] - b[1];
+  })
+); */
