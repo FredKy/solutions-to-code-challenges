@@ -93,3 +93,53 @@ function posDistToEntities(pos, entities) {
 
 var myDistances = posDistToEntities(entitiesList[0].getPos(), entitiesList);
 console.log(myDistances);
+
+var area = [
+  "#########.#########",
+  "#...#...#.#...#...#",
+  "#.#...#.#.#.#...#.#",
+  "#.##.##.###.##.##.#",
+  "#.................#",
+  "#.##.##.#.#.##.##.#",
+  "#.##.#..#.#..#.##.#",
+  "#......##.##......#",
+  "####.###w.w###.####",
+  "...#.....#.....#...",
+  "####.###w.w###.####",
+  "#......##.##......#",
+  "#.##.#..#.#..#.##.#",
+  "#.##.##.#.#.##.##.#",
+  "#.................#",
+  "#.##.##.###.##.##.#",
+  "#.#...#.#.#.#...#.#",
+  "#...#...#.#...#...#",
+  "#########.#########",
+];
+
+function getNonWallNeighbors(pos, area) {
+  var height = area.length;
+  var width = area[0].length;
+  //console.log(height, width);
+  const res = [];
+  for (
+    let j = Math.max(0, pos[1] - 1);
+    j <= Math.min(height - 1, pos[1] + 1);
+    j++
+  ) {
+    for (
+      let i = Math.max(0, pos[0] - 1);
+      i <= Math.min(width - 1, pos[0] + 1);
+      i++
+    ) {
+      if (area[j].charAt(i) !== "#" && dist(pos, [i, j]) === 1) {
+        res.push([i, j]);
+      }
+    }
+  }
+  return res;
+}
+
+console.log(getNonWallNeighbors([4, 4], area));
+
+console.log(getNonWallNeighbors([1, 1], area));
+
