@@ -145,7 +145,7 @@ console.log(getNonWallNeighbors([1, 1], area));
 
 console.log(Math.min([]));
 
-function generatePossiblePlays(entities) {
+function generatePossiblePlays(myEntity, entities) {
   const currentDistances = posDistToEntities(myEntity.getPos(), entities);
   currentDistances.push(myEntity.getPos());
   var plays = [currentDistances];
@@ -171,7 +171,7 @@ function generatePossiblePlays(entities) {
   return plays;
 }
 
-var listOfPlays = generatePossiblePlays(entitiesList);
+var listOfPlays = generatePossiblePlays(myEntity, entitiesList);
 console.log(listOfPlays);
 
 listOfPlays.sort(function (a, b) {
