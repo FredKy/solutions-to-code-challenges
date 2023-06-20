@@ -91,7 +91,7 @@ function posDistToEntities(pos, entities) {
   return [listOfDistToWanderers, listOfDistToExplorers];
 }
 
-var myDistances = posDistToEntities(entitiesList[0].getPos(), entitiesList);
+var myDistances = posDistToEntities(myEntity.getPos(), entitiesList);
 console.log(myDistances);
 
 var area = [
@@ -143,3 +143,32 @@ console.log(getNonWallNeighbors([4, 4], area));
 
 console.log(getNonWallNeighbors([1, 1], area));
 
+console.log(Math.min([]));
+
+function generatePossiblePlays(entities) {
+  const currentDistances = posDistToEntities(myEntity.getPos(), entities);
+  currentDistances.push(myEntity.getPos());
+  var plays = [currentDistances];
+  var nonWallNeighbors = getNonWallNeighbors(myEntity.getPos(), area);
+  for (let neighborPos of nonWallNeighbors) {
+    const neighborDistances = posDistToEntities(neighborPos, entities);
+    neighborDistances.push(neighborPos);
+    plays.push(neighborDistances);
+  }
+
+  //replace list of distances to entities with distance to closest entity (min)
+  for (let item of plays) {
+    //console.log(Math.min(...item[0]));
+    item[0].length > 0
+      ? (item[0] = Math.min(...item[0]))
+      : (item[0] = Infinity);
+    item[1].length > 0
+      ? (item[1] = Math.min(...item[1]))
+      : (item[1] = Infinity);
+  }
+
+  // a play contains: [mindist to WANDERERS, mindist to EXPLORERS, from pos]
+  return plays;
+}
+
+console.log(generatePossiblePlays(entitiesList));
