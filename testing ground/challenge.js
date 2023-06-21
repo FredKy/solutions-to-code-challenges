@@ -39,3 +39,25 @@ let x = n;
 while([...n.toString()].some(c => x.toString().includes(c)))
     x++
 console.log(x); */
+
+
+// Another challenge
+
+const string = readline();
+//console.error(string)
+var arr = string.split("-")
+//console.error(arr)
+var res = ""
+for (let i = 0; i < arr.length; i++) {
+    if (arr[i].charAt(1) == '0') {
+        res += String.fromCharCode(parseInt(arr[i].split(")")[1])+97)
+    } else if (arr[i].charAt(1) == '1') {
+        res += String.fromCharCode(parseInt(arr[i].split(")")[1])+65)
+    } else {
+        res += parseInt(arr[i].split(")")[1])
+    }
+}
+// Write an answer using console.log()
+// To debug: console.error('Debug messages...');
+
+console.log(res);
