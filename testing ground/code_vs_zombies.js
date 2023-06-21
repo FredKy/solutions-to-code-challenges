@@ -14,7 +14,7 @@ class Human {
   getY() {
     return this.y;
   }
-  getPosition() {
+  getPos() {
     return [this.x, this.y];
   }
   getType() {
@@ -40,10 +40,10 @@ class Zombie {
   getY() {
     return this.y;
   }
-  getPosition() {
+  getPos() {
     return [this.x, this.y];
   }
-  getNextPosition() {
+  getNextPos() {
     return [this.yNext, this.xNext];
   }
   getType() {
@@ -63,17 +63,77 @@ function posDistToEntities(pos, entities) {
   var listOfDistToHumans = [];
   var listOfDistToZombies = [];
   var ents = [...entities];
-  var myId = ents.shift().getId();
   const len = ents.length;
   for (let i = 0; i < len; i++) {
     let currEntity = ents[i];
     if (currEntity.getType() === "zombie") {
-      listOfDistToZombies.push(dist(pos, currEntity.getPos()));
+      let pair = [dist(pos, currEntity.getPos()), move(currEntity.getPos())];
+      listOfDistToZombies.push(pair);
     } else {
-      listOfDistToHumans.push(dist(pos, currEntity.getPos()));
+      let pair = [dist(pos, currEntity.getPos()), move(currEntity.getPos())];
+      listOfDistToHumans.push(pair);
     }
   }
   listOfDistToZombies = listOfDistToZombies.sort();
   listOfDistToHumans = listOfDistToHumans.sort();
   return [listOfDistToZombies, listOfDistToHumans];
 }
+
+function move(pos) {
+  return pos[0] + " " + pos[1];
+}
+
+var arr = [
+  [
+    [7253.2751223154355, "3100 7000"],
+    [9626.006440887104, "11500 7100"],
+  ],
+  [
+    [6797.793759742936, "8000 6100"],
+    [7238.957107208193, "950 6000"],
+  ],
+];
+
+arr[1].sort((a, b) => a[0] - b[0]);
+console.log(arr);
+
+var humans = [new Human(0, 3000, 4500), new Human(0, 14000, 4500)];
+var zombies = [
+  new Zombie(0, 2500, 4500, 2900, 4500),
+  new Zombie(1, 15500, 6500, 15260, 6180),
+];
+const myPos = [8000, 4500];
+
+function getHumanById(id, humans) {
+    for (let human of humans) {
+        if (human.getId() === id) {
+            return human;
+        }
+    }
+    return null;
+}
+
+function mostThreatenedHumans(humans, zombies) {
+  const zombieSpeed = 400;
+  var res = [];
+  for (let i = 0; i < humans.length; i++) {
+    let distances = [];
+    distances.push(
+      posDistToEntities(humans[i].getPos(), zombies)[0].sort(
+        // Shortest distance first in array
+        (a, b) => a[0] - b[0]
+      )
+    );
+    console.error("dist: " + distances[0][0][0]);
+    console.error("my dist to human: " + dist(myPos, humans[i].getPos()));
+    // Only add human to list if I can reach it within time.
+    if (
+      distances[0][0][0] / zombieSpeed >
+      dist(myPos, humans[i].getPos()) / 1000
+    ) {
+      res.push([...distances, humans[i].getId()]);
+    }
+  }
+  return res;
+}
+console.log(mostThreatenedHumans(humans, zombies));
