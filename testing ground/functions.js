@@ -12,3 +12,18 @@ function prime(n) {
     }
     return true;
 }
+
+//Python hack!
+/* 
+I=input
+I(((int(I())+int(I())-1)%7+1))
+
+
+print((int(input())+int(input())-1)%7+1)
+
+
+I=input
+m=int(I())
+n=int(I())
+I((m+n-1)%7+1)
+ */
