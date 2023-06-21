@@ -61,3 +61,32 @@ for (let i = 0; i < arr.length; i++) {
 // To debug: console.error('Debug messages...');
 
 console.log(res);
+
+
+// Quick solution to sword circle killing problem
+/* const n = parseInt(readline());
+//console.error(n)
+var arr = [...Array(n+1).keys()].slice(1)
+var survivors = n
+count = 1;
+while (survivors != 1) {
+    count = count % survivors
+    while (count < survivors) {
+        count = count + 1
+        arr.splice(count,1)
+        survivors -=1
+        if (count > arr.length-1) break;
+    }
+}
+console.log(arr[1]-1) */
+
+//Elegant python sol:
+/* import sys
+import math
+n = int(input())
+
+x=[*range(1,n+1)]
+s=0
+while len(x)>1:
+    x=x[2:]+[x[0]]
+print(*x) */
