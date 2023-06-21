@@ -105,15 +105,15 @@ var zombies = [
 const myPos = [8000, 4500];
 
 function getHumanById(id, humans) {
-    for (let human of humans) {
-        if (human.getId() === id) {
-            return human;
-        }
+  for (let human of humans) {
+    if (human.getId() === id) {
+      return human;
     }
-    return null;
+  }
+  return null;
 }
 
-function mostThreatenedHumans(humans, zombies) {
+function mostThreatenedHumans(humans, zombies, myPos) {
   const zombieSpeed = 400;
   var res = [];
   for (let i = 0; i < humans.length; i++) {
@@ -134,6 +134,7 @@ function mostThreatenedHumans(humans, zombies) {
       res.push([...distances, humans[i].getId()]);
     }
   }
+  res.sort((a, b) => a[0][0][0] - b[0][0][0])
   return res;
 }
 console.log(mostThreatenedHumans(humans, zombies));
