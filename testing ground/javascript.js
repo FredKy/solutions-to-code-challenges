@@ -166,7 +166,7 @@ function containsDigit(str) {
 }
 
 // Check if all characters of string are digits
-/^\d+$/.test(str);
+// /^\d+$/.test(str);
 // Alternatively
 string.match(/^[0-9]+$/) != null;
 
@@ -220,3 +220,24 @@ regex = / s/; // match new lines
 regex = / x/; // allow spaces and comments
 regex = / j/; // duplicate group names allowed
 regex = / U/; // ungreedy match
+
+
+/*
+const log = readline();
+var l = 0
+var r = 0
+for (let c of log) {
+    (c === "(") ? l+=1 : r +=1
+}
+
+console.log(l-r); */
+
+/* 
+const log = readline();
+console.log((log.match(/\(/g)||[]).length - (log.match(/\)/g)||[]).length);
+*/
+
+// Count number of left brackets in string
+(log.match(/\(/g)||[]).length
+
+
