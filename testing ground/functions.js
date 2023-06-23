@@ -50,3 +50,40 @@ def NP(m, n)
 end
 
 p NP(W,H) */
+
+//Iterative factorial JS
+function sFact(num) {
+  var rval = 1;
+  for (var i = 2; i <= num; i++) rval = rval * i;
+  return rval;
+}
+
+// find the max length of string elements in an array
+arr = ["1", "12", "123"];
+max = Math.max(...arr.map((element) => element.length));
+
+function dec2bin(dec) {
+  return (dec >>> 0).toString(2);
+}
+
+console.log(dec2bin(1)); // 1
+console.log(dec2bin(-1)); // 11111111111111111111111111111111
+console.log(dec2bin(256)); // 100000000
+console.log(dec2bin(-256)); // 11111111111111111111111100000000
+
+const array1 = ["a", "b", "c"];
+const array2 = ["d", "e", "f"];
+const array3 = array1.concat(array2);
+
+console.log(array3);
+// Expected output: Array ["a", "b", "c", "d", "e", "f"]
+
+
+//Array.from(Array(10).keys())
+//=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+//[...Array(10).keys()]
+//=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+//Array.from({length: 10}, (_, i) => i + 1)
+//=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
