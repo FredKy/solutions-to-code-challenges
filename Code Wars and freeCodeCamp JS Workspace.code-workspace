@@ -1,7 +1,13 @@
 {
   "folders": [
-	{
-		"path": "."
-	}
-]
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none"
+  }
 }
