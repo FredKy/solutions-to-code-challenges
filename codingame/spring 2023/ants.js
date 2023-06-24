@@ -134,6 +134,7 @@ class Cell {
   
   // game loop
   while (true) {
+    var myTotalAnts = 0;
     for (let i = 0; i < numberOfCells; i++) {
         const inputs = readline().split(' ')
         const resources = parseInt(inputs[0]); // the current amount of eggs/crystals on this cell
@@ -142,6 +143,7 @@ class Cell {
   
         cells[i].resources = resources
         cells[i].myAnts = myAnts
+        myTotalAnts += myAnts
         cells[i].oppAnts = oppAnts
     }
     console.error(myBases)
@@ -164,13 +166,14 @@ class Cell {
             crystal_cells.push(cell)
         }
     }
-
-    /* for (const cell of cells) {
-        if (cell.resources > 0) {
-            actions.push(`LINE ${myBases[0]} ${cell.index} 1`)
-            break
-        }
-    } */
+/*     let cellsWithDistances = []
+    for (const cell of egg_cells.concat(crystal_cells)) {
+        cellsWithDistances.push([cell.index, distancesFromBase[cell.index]])
+    }
+    cellsWithDistances.sort((a,b) => a[1]-b[1])
+    const cellIndex = cellsWithDistances[0][0]
+    const lineParameter = Math.floor((myTotalAnts/cellsWithDistances[0][1]))
+    actions.push(`LINE ${myBases[0]} ${cellIndex} ${lineParameter}`) */
   
 
     var eggExists = egg_cells.length > 0
@@ -181,7 +184,9 @@ class Cell {
         }
         cellsWithDistances.sort((a,b) => a[1]-b[1])
         const cellIndex = cellsWithDistances[0][0]
-        actions.push(`LINE ${myBases[0]} ${cellIndex} 1`)
+        const lineParameter = Math.floor((myTotalAnts/cellsWithDistances[0][1]))
+        //actions.push(`LINE ${myBases[0]} ${cellIndex} 1`)
+        actions.push(`LINE ${myBases[0]} ${cellIndex} ${lineParameter}`)
     }
 
     if (!eggExists) {
@@ -191,7 +196,9 @@ class Cell {
         }
         cellsWithDistances.sort((a,b) => a[1]-b[1])
         const cellIndex = cellsWithDistances[0][0]
-        actions.push(`LINE ${myBases[0]} ${cellIndex} 1`)
+        const lineParameter = Math.floor((myTotalAnts/cellsWithDistances[0][1]))
+        //actions.push(`LINE ${myBases[0]} ${cellIndex} 1`)
+        actions.push(`LINE ${myBases[0]} ${cellIndex} ${lineParameter}`)
     }
 
     // TODO: choose actions to perform and push them into actions. E.g:
