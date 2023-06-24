@@ -241,3 +241,23 @@ console.log((log.match(/\(/g)||[]).length - (log.match(/\)/g)||[]).length);
 (log.match(/\(/g)||[]).length
 
 
+// Super short JS code for summing the elements of the boundary of an NxN matrix
+r=readline
+M=N=r()
+a=0
+while(N--){
+l=r().split(' ')
+a+=(N==0|N==M-1)?l.reduce((p,b)=>+b+p,0):+l[0]+ +l[M-1]
+}
+print(a)
+
+
+//const n = parseInt(readline());
+/* const arr = readline().split(' ').map(n=>+n).sort((a,b)=>a-b);
+const x=arr.reduce((a,b)=>a+b)
+
+console.log(x-arr[n-1],x-arr[0]); */
+
+
+// Konvertera alla strängar till tal i en array med tal i sträng-form
+//arr.map(n=>+n)

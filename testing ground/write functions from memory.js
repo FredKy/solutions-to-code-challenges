@@ -26,4 +26,5 @@ sort([3, 2, 1])
 
 console.log(Array(10).fill("#").join(""))
 
-
+var num = +"0"
+console.log(1 + num)

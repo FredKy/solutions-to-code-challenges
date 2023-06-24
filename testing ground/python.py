@@ -24,3 +24,27 @@ for i in range(n):
         j += 1
 
 print(*a)
+
+
+#Count permutations to find two factors, A, B of 8 digit vampire number N
+import itertools
+n=input()
+l=len(n)//2
+for p in itertools.permutations(n):
+    a,b=int(''.join(p[:l])),int(''.join(p[l:]))
+    if a*b==int(n):
+        print(*sorted([a,b]))
+        exit()
+
+#Short python code for summing the elements of the boundary of an NxN matrix
+i=input
+p=int
+n=p(i())
+b=lambda:sum(p(x) for x in i().split())
+a=b()
+for o in range(n-2):l=i().split();a+=p(l[0])+p(l[-1])
+if n>1:a+=b()
+print(a)
+
+
+
