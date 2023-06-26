@@ -223,7 +223,7 @@ function generateGraph(area) {
   const graph = {};
   for (var j = 0; j < height; j++) {
     for (var i = 0; i < width; i++) {
-      if (area[i][j] != "#") {
+      if (area[j].charAt(i) !== "#") {
         graph[[i, j]] = getNonWallNeighbors([i, j], area);
       }
     }
