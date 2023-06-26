@@ -116,6 +116,27 @@ var area = [
   "#########.#########",
 ];
 
+var secondArea = [
+  "####################",
+  "#........##........#",
+  "#.####.#.##.#.####.#",
+  "#.#..............#.#",
+  "#...#.##.##.##.#...#",
+  "#.#.#.##.##.##.#.#.#",
+  "#.#.#....##....#.#.#",
+  "#.....#w####w#.....#",
+  "###.#####..#####.###",
+  "###.#####..#####.###",
+  "#.....#w####w#.....#",
+  "#.#.#....##....#.#.#",
+  "#.#.#.##.##.##.#.#.#",
+  "#...#.##.##.##.#...#",
+  "#.#..............#.#",
+  "#.####.#.##.#.####.#",
+  "#........##........#",
+  "####################",
+];
+
 function getNonWallNeighbors(pos, area) {
   var height = area.length;
   var width = area[0].length;
@@ -195,3 +216,19 @@ console.log(topListOfPlays);
     return a[1] - b[1];
   })
 ); */
+
+function generateGraph(area) {
+  var height = area.length;
+  var width = area[0].length;
+  const graph = {};
+  for (var j = 0; j < height; j++) {
+    for (var i = 0; i < width; i++) {
+      if (area[i][j] != "#") {
+        graph[[i, j]] = getNonWallNeighbors([i, j], area);
+      }
+    }
+  }
+  return graph;
+}
+var graph = generateGraph(area);
+console.log(graph);
