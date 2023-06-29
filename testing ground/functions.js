@@ -78,7 +78,6 @@ const array3 = array1.concat(array2);
 console.log(array3);
 // Expected output: Array ["a", "b", "c", "d", "e", "f"]
 
-
 //Array.from(Array(10).keys())
 //=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -89,12 +88,12 @@ console.log(array3);
 //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 //Permutatations of array
-const permutations = arr => {
+const permutations = (arr) => {
   if (arr.length <= 2) return arr.length === 2 ? [arr, [arr[1], arr[0]]] : arr;
   return arr.reduce(
     (acc, item, i) =>
       acc.concat(
-        permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map(val => [
+        permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map((val) => [
           item,
           ...val,
         ])
@@ -102,3 +101,12 @@ const permutations = arr => {
     []
   );
 };
+
+var animals = ["dog", "cat", "zebra"];
+animals[10] = "badger";
+console.log(animals);
+for (let e of animals) {
+  console.log(e);
+}
+
+console.log(null && 1);
