@@ -110,3 +110,10 @@ for (let e of animals) {
 }
 
 console.log(null && 1);
+
+console.log(Math.asin(1));
+
+var SQRS = new Set();
+SQRS.add([~~(1 / 3), ~~(4 / 3)]);
+console.error(SQRS);
+console.error(~~(1 / 3), ~~(4 / 3));
