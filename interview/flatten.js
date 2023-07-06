@@ -14,7 +14,34 @@ Array.prototype.flatten = function () {
   return copy;
 };
 
+Array.prototype.flattenTwo = function () {
+  const res = [];
+
+  /* for (const e of this) {
+    if (e instanceof Array) {
+      var tmp = e.flatten();
+      res.push(...tmp);
+    } else {
+      res.push(e);
+    }
+  } */
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] instanceof Array) {
+      var tmp = this[i].flatten();
+      res.push(...tmp);
+    } else {
+      res.push(this[i]);
+    }
+  }
+  return res;
+};
+
 console.log([].flatten());
 console.log([1, 2, 3].flatten());
 console.log([[1, 2], 3, 4].flatten());
 console.log([[1, 2], [[3, 4], 5], 6].flatten());
+
+console.log([].flattenTwo());
+console.log([1, 2, 3].flattenTwo());
+console.log([[1, 2], 3, 4].flattenTwo());
+console.log([[1, 2], [[3, 4], 5], 6].flattenTwo());
