@@ -12,6 +12,16 @@ function processOrderList(orderList, orderId, state) {
   return copy;
 }
 
+function processOrderListUnnestedAutism(orderList, orderId, state) {
+  let copy = [...orderList];
+  for (var i = 0; i < copy.length; i++) {
+    if (state === "Processing" && copy[i].id === orderId)
+      copy[i].state = "Processing";
+    if (state === "Delivered" && copy[i].id === orderId) copy.splice(i, 1);
+  }
+  return copy;
+}
+
 console.log(
   processOrderList(
     [
