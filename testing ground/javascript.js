@@ -261,3 +261,17 @@ console.log(x-arr[n-1],x-arr[0]); */
 
 // Konvertera alla strängar till tal i en array med tal i sträng-form
 //arr.map(n=>+n)
+
+
+//Crazy factorial lösn
+/* const n = parseInt(readline());
+
+x=n;
+for(i=n-1;i>0;i--){
+    x*=i
+}
+
+y=(""+x).split("").reduce((a,c)=>a+(+c),0)
+
+
+console.log(x/y); */
