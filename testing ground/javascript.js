@@ -275,3 +275,19 @@ y=(""+x).split("").reduce((a,c)=>a+(+c),0)
 
 
 console.log(x/y); */
+
+//n is a string, but no need to convert to number, can still iterate
+/* r=readline,n=r()
+while(n--)print(r().split` `.sort((a,b)=>a-b)[1]) */
+
+/* var n = "5";
+while (n--) {
+  console.log(n);
+}
+>>
+4
+3
+2
+1
+0
+*/
