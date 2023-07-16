@@ -37,3 +37,31 @@ Input
 Output
 2 */
 
+/* 
+s=bin(int(input()))
+print(len(s)+s.count('1')-4)
+*/
+
+function shortest(n) {
+  let res = [];
+
+  function helper(curr, operations) {
+    if (curr > n) {
+      return;
+    }
+    if (curr == n) {
+      res.push([curr, operations]);
+      return;
+    }
+    helper(curr * 2, operations.concat(2));
+    helper(curr + 1, operations.concat(1));
+  }
+
+  helper(1, []);
+  return res;
+}
+
+var result = shortest(12).sort((a, b) => a[1].length - b[1].length);
+for (let e of result) {
+  console.log(e[1].length + "  " + e[1].join(","));
+}
