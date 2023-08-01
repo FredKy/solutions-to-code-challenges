@@ -22,9 +22,27 @@ function sort(a) {
   console.log(a);
 }
 
-sort([3, 2, 1])
+sort([3, 2, 1]);
 
-console.log(Array(10).fill("#").join(""))
+console.log(Array(10).fill("#").join(""));
 
-var num = +"0"
-console.log(1 + num)
+var num = +"0";
+console.log(1 + num);
+
+function primeFactors(n) {
+  const factors = [];
+  let div = 2;
+
+  while (n >= 2) {
+    if (n % div == 0) {
+      factors.push(div);
+      n = n / div;
+    } else {
+      div++;
+    }
+  }
+
+  return factors;
+}
+
+console.error(primeFactors(45));
