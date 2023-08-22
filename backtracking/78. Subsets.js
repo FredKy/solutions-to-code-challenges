@@ -19,3 +19,5 @@ var subsets = function (nums) {
   depthFirstSearch(0);
   return res;
 };
+
+console.log(subsets([1, 2, 3]));
