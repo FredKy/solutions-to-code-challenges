@@ -2,14 +2,14 @@ var exist = function (board, word) {
   let m = board.length;
   let n = board[0].length;
   var res = false;
-  function dfs(i, j, used, candidate) {
+  function dfs(i, j, used, candidate, l) {
     //console.error(candidate);
     let c = candidate.join("");
     if (c == word) {
       res = true;
       return;
     }
-    if (c != word.substring(0, candidate.length) || i >= m || j >= n) {
+    if (c[l - 1] != word[l - 1] || i >= m || j >= n) {
       return;
     }
     //Branch
@@ -18,7 +18,7 @@ var exist = function (board, word) {
       candidate.push(board[i][j - 1]);
       let copy = { ...used };
       copy[[i, j - 1]] = 1;
-      dfs(i, j - 1, copy, [...candidate]);
+      dfs(i, j - 1, copy, [...candidate], l + 1);
       candidate.pop();
     }
 
@@ -26,7 +26,7 @@ var exist = function (board, word) {
       candidate.push(board[i][j + 1]);
       let copy = { ...used };
       copy[[i, j + 1]] = 1;
-      dfs(i, j + 1, copy, [...candidate]);
+      dfs(i, j + 1, copy, [...candidate], l + 1);
       candidate.pop();
     }
 
@@ -34,7 +34,7 @@ var exist = function (board, word) {
       candidate.push(board[i + 1][j]);
       let copy = { ...used };
       copy[[i + 1, j]] = 1;
-      dfs(i + 1, j, copy, [...candidate]);
+      dfs(i + 1, j, copy, [...candidate], l + 1);
       candidate.pop();
     }
 
@@ -42,16 +42,17 @@ var exist = function (board, word) {
       candidate.push(board[i - 1][j]);
       let copy = { ...used };
       copy[[i - 1, j]] = 1;
-      dfs(i - 1, j, copy, [...candidate]);
+      dfs(i - 1, j, copy, [...candidate], l + 1);
       candidate.pop();
     }
   }
 
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
+      if (word[0] != board[i][j]) continue;
       let used = {};
       used[[i, j]] = 1;
-      dfs(i, j, used, [board[i][j]]);
+      dfs(i, j, used, [board[i][j]], 1);
     }
   }
 
@@ -72,15 +73,15 @@ const word = "ABCCED"; */
 ];
 const word = "SEE"; */
 
-/* const board = [
+const board = [
   ["A", "B", "C", "E"],
   ["S", "F", "C", "S"],
   ["A", "D", "E", "E"],
 ];
 
-const word = "ABCCED"; */
+const word = "ABCCED";
 
-const board = [
+/* const board = [
   ["A", "A", "A", "A", "A", "A"],
   ["A", "A", "A", "A", "A", "A"],
   ["A", "A", "A", "A", "A", "A"],
@@ -88,6 +89,6 @@ const board = [
   ["A", "A", "A", "A", "A", "A"],
   ["A", "A", "A", "A", "A", "A"],
 ];
-const word = "AAAAAAAAAAAAAAB";
+const word = "AAAAAAAAAAAAAAB"; */
 
 console.log(exist(board, word));
