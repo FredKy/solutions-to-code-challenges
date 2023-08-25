@@ -145,6 +145,14 @@ function solved(grid) {
 
 function mainProgram(grid) {
   let solution = [];
+  //let balls = {};
+  //Calculate positions and shots left for all balls on the inital grid and store in object.
+  /* for (let i = 0; i < H; i++) {
+    for (let j = 0; j < W; j++) {
+      if (playable.has(grid[i][j])) balls[[i, j]] = grid[i][j];
+    }
+  } */
+
   function dfs(grid) {
     //Search grid for playable balls
     let balls = {};
@@ -152,7 +160,7 @@ function mainProgram(grid) {
     for (let i = 0; i < H; i++) {
       for (let j = 0; j < W; j++) {
         if (playable.has(grid[i][j])) balls[[i, j]] = grid[i][j];
-        else if (grid[i][j] == "H") holesLeft += 1;
+        if (grid[i][j] == "H") holesLeft += 1;
       }
     }
     if (holesLeft == 0) {
@@ -169,11 +177,12 @@ function mainProgram(grid) {
       let shots = balls[key];
       let directions = feasibleDirections(i, j, shots);
       for (let direction of directions) {
-        let oldGrid = JSON.parse(JSON.stringify(grid));
-        let newGrid = hitBall(i, j, direction, shots, grid);
+        //let oldGrid = JSON.parse(JSON.stringify(grid));
+        //let oldBalls = JSON.parse(JSON.stringify(balls));
+        let newGrid = hitBall(i, j, direction, shots, grid, balls);
         //printGrid(newGrid);
         dfs(newGrid);
-        grid = oldGrid;
+        //grid = oldGrid;
       }
     }
   }
