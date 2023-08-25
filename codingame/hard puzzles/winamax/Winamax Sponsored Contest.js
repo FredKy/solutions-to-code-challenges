@@ -10,21 +10,20 @@
 
 //Grid 3 before optimization mainProgram took 376.5021999999881 milliseconds.
 //First optimization: mainProgram took 87.87479999661446 milliseconds.
-/* var grid = [
+var grid = [
   [4, ".", ".", "X", "X"],
   [".", "H", ".", "H", "."],
   [".", ".", ".", "H", "."],
   [".", 2, ".", ".", 2],
   [".", ".", ".", ".", "."],
 ];
- */
 
 // Grid 4
 // mainProgram took 24178.071400001645 milliseconds.
-var grid = ["3..H.2", ".2..H.", "..H..H", ".X.2.X", "......", "3..H.."];
+/* var grid = ["3..H.2", ".2..H.", "..H..H", ".X.2.X", "......", "3..H.."];
 grid = grid.map((row) =>
   row.split("").map((a) => (/\d/.test(a) ? parseInt(a) : a))
-);
+); */
 
 console.log(grid);
 
@@ -38,12 +37,6 @@ const allowedLandingSpot = new Set(["H", "."]);
 const H = grid.length;
 const W = grid[0].length;
 
-var initialShots = 0;
-for (let row of grid) {
-  for (let e of row) {
-    if (playable.has(e)) initialShots += e;
-  }
-}
 //console.log(initialShots);
 
 function printGrid(grid) {
@@ -152,11 +145,7 @@ function solved(grid) {
 
 function mainProgram(grid) {
   let solution = [];
-  function dfs(grid, shotsLeft) {
-    if (shotsLeft == 0) {
-      return;
-    }
-
+  function dfs(grid) {
     //Search grid for playable balls
     let balls = {};
     let holesLeft = 0;
@@ -183,12 +172,12 @@ function mainProgram(grid) {
         let oldGrid = JSON.parse(JSON.stringify(grid));
         let newGrid = hitBall(i, j, direction, shots, grid);
         //printGrid(newGrid);
-        dfs(newGrid, shotsLeft - 1);
+        dfs(newGrid);
         grid = oldGrid;
       }
     }
   }
-  dfs(grid, initialShots);
+  dfs(grid);
   console.log("-----");
   //console.log(solution);
   for (let row of solution) {
