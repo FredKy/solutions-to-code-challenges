@@ -10,6 +10,7 @@
 
 //Grid 3 before optimization mainProgram took 376.5021999999881 milliseconds.
 //First optimization: mainProgram took 87.87479999661446 milliseconds.
+
 var grid = [
   [4, ".", ".", "X", "X"],
   [".", "H", ".", "H", "."],
@@ -165,8 +166,9 @@ function mainProgram(grid) {
     //console.error(balls);
     //For every ball, shoot ball in feasible directions
     for (let key in balls) {
-      let i = parseInt(key[0]);
-      let j = parseInt(key[2]);
+      let s = key.split(",");
+      let i = parseInt(s[0]);
+      let j = parseInt(s[1]);
       let shots = balls[key];
       let directions = feasibleDirections(i, j, shots);
       for (let direction of directions) {
