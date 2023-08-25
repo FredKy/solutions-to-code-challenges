@@ -1,10 +1,25 @@
 //Unoptimized first draft
 
-var grid = [
+/* var grid = [
   [2, ".", "X"],
   [".", ".", "H"],
   [".", "H", 1],
+]; */
+
+var grid = [
+  [4, ".", ".", "X", "X"],
+  [".", "H", ".", "H", "."],
+  [".", ".", ".", "H", "."],
+  [".", 2, ".", ".", 2],
+  [".", ".", ".", ".", "."],
 ];
+
+/* var grid = ["3..H.2", ".2..H.", "..H..H", ".X.2.X", "......", "3..H.."];
+grid = grid.map((row) =>
+  row.split("").map((a) => (/\d/.test(a) ? parseInt(a) : a))
+); */
+
+console.log(grid);
 
 // prettier-ignore
 const forbidden = new Set([0,1,2,3,4,5,6,7,8,9,"H","<","v",">","^"])
@@ -24,18 +39,19 @@ for (let row of grid) {
 }
 //console.log(initialShots);
 
-const printGrid = () => {
+function printGrid(grid) {
   console.log("-----");
   for (let row of grid) {
     console.log(row.join``);
   }
-};
+}
 
 function hitBall(i, j, dir, count, grid) {
   let localGrid = JSON.parse(JSON.stringify(grid));
 
   function decrementShot(x, y) {
-    localGrid[x][y] = grid[i][j] - 1;
+    //If ball lands in hole, set remaining shots to zero, otherwise decrement 1
+    localGrid[x][y] = localGrid[x][y] == "H" ? 0 : grid[i][j] - 1;
   }
   switch (dir) {
     case ">":
@@ -133,6 +149,8 @@ grid = hitBall(2, 0, ">", 1, grid);
 printGrid();
 console.log(solved(grid)); */
 
+printGrid(grid);
+
 //Helper functions
 function solved(grid) {
   for (let row of grid) {
@@ -169,14 +187,19 @@ function mainProgram(grid) {
       for (let direction of directions) {
         let oldGrid = JSON.parse(JSON.stringify(grid));
         let newGrid = hitBall(i, j, direction, shots, grid);
+        //printGrid(newGrid);
         dfs(newGrid, shotsLeft - 1);
         grid = oldGrid;
       }
     }
   }
   dfs(grid, initialShots);
+  console.log("-----");
   //console.log(solution);
-
+  for (let row of solution) {
+    console.log(row.join``);
+  }
+  console.log("-----");
   for (let row of solution) {
     for (let i = 0; i < W; i++) {
       if (!arrows.has(row[i])) row[i] = ".";
@@ -185,4 +208,7 @@ function mainProgram(grid) {
   }
   //console.log(solution);
 }
+const t0 = performance.now();
 mainProgram(grid);
+const t1 = performance.now();
+console.log(`mainProgram took ${t1 - t0} milliseconds.`);
