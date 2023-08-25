@@ -46,12 +46,19 @@ function printGrid(grid) {
   }
 }
 
-function hitBall(i, j, dir, count, grid) {
+function hitBall(i, j, dir, count, grid, balls) {
   let localGrid = JSON.parse(JSON.stringify(grid));
+  let localBalls = JSON.parse(JSON.stringify(balls));
 
   function decrementShot(x, y) {
+    delete localBalls[[i, j]];
     //If ball lands in hole, set remaining shots to zero, otherwise decrement 1
-    localGrid[x][y] = localGrid[x][y] == "H" ? 0 : grid[i][j] - 1;
+    if (localGrid[x][y] == "H") {
+      localGrid[x][y] = 0;
+    } else {
+      localGrid[x][y] = grid[i][j] - 1;
+      if (localGrid[x][y] > 0) localBalls[[x, y]] = localGrid[x][y];
+    }
   }
   switch (dir) {
     case ">":
@@ -79,7 +86,8 @@ function hitBall(i, j, dir, count, grid) {
       decrementShot(i + count, j);
       break;
   }
-  return localGrid;
+  //console.error(localBalls);
+  return [localGrid, localBalls];
 }
 
 function feasibleDirections(i, j, count) {
@@ -145,14 +153,20 @@ function solved(grid) {
 
 function mainProgram(grid) {
   let solution = [];
+  let balls = {};
+  //Calculate positions and shots left for all balls on the inital grid and store in object.
+  for (let i = 0; i < H; i++) {
+    for (let j = 0; j < W; j++) {
+      if (playable.has(grid[i][j])) balls[[i, j]] = grid[i][j];
+    }
+  }
+  console.error(balls);
 
-  function dfs(grid) {
+  function dfs(grid, balls) {
     //Search grid for playable balls
-    let balls = {};
     let holesLeft = 0;
     for (let i = 0; i < H; i++) {
       for (let j = 0; j < W; j++) {
-        if (playable.has(grid[i][j])) balls[[i, j]] = grid[i][j];
         if (grid[i][j] == "H") holesLeft += 1;
       }
     }
@@ -168,14 +182,17 @@ function mainProgram(grid) {
       let i = parseInt(key[0]);
       let j = parseInt(key[2]);
       let shots = balls[key];
+      //console.error(i, j, shots);
+      //console.error(typeof i, typeof j, typeof shots);
       let directions = feasibleDirections(i, j, shots);
       for (let direction of directions) {
-        let newGrid = hitBall(i, j, direction, shots, grid, balls);
-        dfs(newGrid);
+        let [newGrid, newBalls] = hitBall(i, j, direction, shots, grid, balls);
+        //printGrid(newGrid);
+        dfs(newGrid, newBalls);
       }
     }
   }
-  dfs(grid);
+  dfs(grid, balls);
   console.log("-----");
   //console.log(solution);
   for (let row of solution) {
