@@ -21,10 +21,10 @@
 
 // Grid 4
 // mainProgram took 24178.071400001645 milliseconds.
-/* var grid = ["3..H.2", ".2..H.", "..H..H", ".X.2.X", "......", "3..H.."];
+var grid = ["3..H.2", ".2..H.", "..H..H", ".X.2.X", "......", "3..H.."];
 grid = grid.map((row) =>
   row.split("").map((a) => (/\d/.test(a) ? parseInt(a) : a))
-); */
+);
 
 console.log(grid);
 
@@ -153,10 +153,6 @@ function solved(grid) {
 function mainProgram(grid) {
   let solution = [];
   function dfs(grid, shotsLeft) {
-    if (solved(grid)) {
-      solution = grid;
-      return;
-    }
     if (shotsLeft == 0) {
       return;
     }
@@ -170,8 +166,11 @@ function mainProgram(grid) {
         else if (grid[i][j] == "H") holesLeft += 1;
       }
     }
-    let numberOfBalls = Object.keys(balls).length;
-    if (holesLeft > numberOfBalls) return;
+    if (holesLeft == 0) {
+      solution = grid;
+      return;
+    }
+    if (holesLeft > Object.keys(balls).length) return;
 
     //console.error(balls);
     //For every ball, shoot ball in feasible directions
