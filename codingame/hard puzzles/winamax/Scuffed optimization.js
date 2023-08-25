@@ -1,4 +1,4 @@
-//Unoptimized first draft
+//Optimization
 
 // Grid 2
 
@@ -10,6 +10,8 @@
 
 //Grid 3 before optimization mainProgram took 376.5021999999881 milliseconds.
 //First optimization: mainProgram took 87.87479999661446 milliseconds.
+//Second optimization: mainProgram took 56.678199999034405 milliseconds.
+//Third optimization: mainProgram took 33.07479999959469 milliseconds.
 var grid = [
   [4, ".", ".", "X", "X"],
   [".", "H", ".", "H", "."],
@@ -46,18 +48,30 @@ function printGrid(grid) {
   }
 }
 
-function hitBall(i, j, dir, count, grid, balls) {
+function hitBall(i, j, dir, count, grid, balls, k) {
   let localGrid = JSON.parse(JSON.stringify(grid));
   let localBalls = JSON.parse(JSON.stringify(balls));
+  let shift = 0;
+
+  //console.error();
 
   function decrementShot(x, y) {
-    delete localBalls[[i, j]];
+    //delete localBalls[[i, j]];
     //If ball lands in hole, set remaining shots to zero, otherwise decrement 1
     if (localGrid[x][y] == "H") {
       localGrid[x][y] = 0;
+      localBalls.splice(k, 1);
+      shift = 1;
+      //localBalls[k] = [x, y, 0];
     } else {
+      console.log(grid[i][j]);
       localGrid[x][y] = grid[i][j] - 1;
-      if (localGrid[x][y] > 0) localBalls[[x, y]] = localGrid[x][y];
+      //if (localGrid[x][y] > 0) localBalls[[x, y]] = localGrid[x][y];
+      if (localGrid[x][y] > 0) localBalls[k] = [x, y, localGrid[x][y]];
+      /* else {
+        localBalls[k] = [x, y, grid[i][j]];
+      } */
+      //console.error(localBalls);
     }
   }
   switch (dir) {
@@ -87,12 +101,13 @@ function hitBall(i, j, dir, count, grid, balls) {
       break;
   }
   //console.error(localBalls);
-  return [localGrid, localBalls];
+  return [localGrid, localBalls, shift];
 }
 
 function feasibleDirections(i, j, count) {
   let res = [];
   //console.error("Run");
+  //if (count == 0) return res;
   //Check if direction to the right is feasible:
   if (j + count < W && allowedLandingSpot.has(grid[i][j + count])) {
     let push = true;
@@ -153,41 +168,64 @@ function solved(grid) {
 
 function mainProgram(grid) {
   let solution = [];
-  let balls = {};
+  let balls = [];
   //Calculate positions and shots left for all balls on the inital grid and store in object.
   for (let i = 0; i < H; i++) {
     for (let j = 0; j < W; j++) {
-      if (playable.has(grid[i][j])) balls[[i, j]] = grid[i][j];
+      if (playable.has(grid[i][j])) balls.push([i, j, grid[i][j]]);
     }
   }
-  console.error(balls);
-
+  balls.sort((a, b) => a[2] - b[2]);
+  //console.error(balls);
+  //return;
   function dfs(grid, balls) {
     //Search grid for playable balls
     let holesLeft = 0;
+    let ballsLeft = 0;
     for (let i = 0; i < H; i++) {
       for (let j = 0; j < W; j++) {
         if (grid[i][j] == "H") holesLeft += 1;
+        else if (playable.has(grid[i][j])) ballsLeft += 1;
       }
     }
     if (holesLeft == 0) {
       solution = grid;
       return;
     }
-    if (holesLeft > Object.keys(balls).length) return;
+    if (holesLeft > ballsLeft) return;
 
     //console.error(balls);
     //For every ball, shoot ball in feasible directions
-    for (let key in balls) {
-      let i = parseInt(key[0]);
-      let j = parseInt(key[2]);
-      let shots = balls[key];
-      //console.error(i, j, shots);
+    let M = balls.length;
+    //let totalFeasibleDirections = 0;
+    for (let k = 0; k < M; k++) {
+      //console.log(balls[k]);
+      let s = balls[k];
+      let i = s[0];
+      let j = s[1];
+      let shots = s[2];
+      //console.log(grid[i][j], shots);
       //console.error(typeof i, typeof j, typeof shots);
-      let directions = feasibleDirections(i, j, shots);
+      let directions = playable.has(grid[i][j])
+        ? feasibleDirections(i, j, shots)
+        : [];
+      console.log(balls, balls[k], directions);
+      printGrid(grid);
       for (let direction of directions) {
-        let [newGrid, newBalls] = hitBall(i, j, direction, shots, grid, balls);
+        let [newGrid, newBalls, shift] = hitBall(
+          i,
+          j,
+          direction,
+          shots,
+          grid,
+          balls,
+          k
+        );
+        k -= shift;
+        M -= shift;
+        //console.log(newBalls);
         //printGrid(newGrid);
+        //return;
         dfs(newGrid, newBalls);
       }
     }
