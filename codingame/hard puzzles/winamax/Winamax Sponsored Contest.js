@@ -1,19 +1,26 @@
 //Unoptimized first draft
 
+// Grid 2
+
 /* var grid = [
   [2, ".", "X"],
   [".", ".", "H"],
   [".", "H", 1],
 ]; */
 
-var grid = [
+//Grid 3 before optimization mainProgram took 376.5021999999881 milliseconds.
+//First optimization: mainProgram took 87.87479999661446 milliseconds.
+/* var grid = [
   [4, ".", ".", "X", "X"],
   [".", "H", ".", "H", "."],
   [".", ".", ".", "H", "."],
   [".", 2, ".", ".", 2],
   [".", ".", ".", ".", "."],
 ];
+ */
 
+// Grid 4
+// mainProgram took 24178.071400001645 milliseconds.
 /* var grid = ["3..H.2", ".2..H.", "..H..H", ".X.2.X", "......", "3..H.."];
 grid = grid.map((row) =>
   row.split("").map((a) => (/\d/.test(a) ? parseInt(a) : a))
@@ -133,22 +140,6 @@ function feasibleDirections(i, j, count) {
   return res;
 }
 
-//console.log("0".includes(0));
-//console.log(feasibleDirections(2, 2, 1));
-
-/* printGrid();
-mainProgram(grid);
-grid = hitBall(2, 2, "^", 1, grid);
-
-printGrid();
-grid = hitBall(0, 0, "v", 2, grid);
-
-printGrid();
-console.log(solved(grid));
-grid = hitBall(2, 0, ">", 1, grid);
-printGrid();
-console.log(solved(grid)); */
-
 printGrid(grid);
 
 //Helper functions
@@ -172,11 +163,16 @@ function mainProgram(grid) {
 
     //Search grid for playable balls
     let balls = {};
+    let holesLeft = 0;
     for (let i = 0; i < H; i++) {
       for (let j = 0; j < W; j++) {
         if (playable.has(grid[i][j])) balls[[i, j]] = grid[i][j];
+        else if (grid[i][j] == "H") holesLeft += 1;
       }
     }
+    let numberOfBalls = Object.keys(balls).length;
+    if (holesLeft > numberOfBalls) return;
+
     //console.error(balls);
     //For every ball, shoot ball in feasible directions
     for (let key in balls) {
