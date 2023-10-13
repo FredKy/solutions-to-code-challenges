@@ -1,0 +1,17 @@
+Given a set of digits, return the biggest palindromic number writable with the digits.
+
+A palindromic number is a number that has the same value when read from left to right, and from right to left.
+
+Note that you don't have to use all digits of input.
+Input
+a single line containing unsorted digits from 0 to 9.
+Output
+The biggest palindromic number writable with these digits. No leading zeros are allowed.
+Constraints
+1 ≤ number of digits ≤ 100
+At least one digit is non-zero
+Example
+Input
+11299
+Output
+91219

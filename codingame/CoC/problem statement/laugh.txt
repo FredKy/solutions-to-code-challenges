@@ -1,0 +1,16 @@
+CodinGame scientists are working on several promising topics. One of them is a research on the quality of laugh.
+
+In this research they record the human speech, extract the laugh from it and analyze it.
+Fortunately, the scientists already made the software which converts speech to text s with length n.
+
+Consider a string of alternating letters “h” and “a” to be a laugh. The quality of laugh is maximum in a speech when it has the longest *substring considered as a laugh. Since you are the leading scientist in this research, it's up to you to find this longest substring.
+Note: 1 Single Character a or h is NOT a laugh.
+
+
+Test 1 Explanation:
+ahaba It is optimal to select substring aha. Print the length of this substring, which is 3.
+
+*Substring is a contiguous sequence of characters within a string. Or in other words, a substring is obtained by deleting zero or more characters from the beginning of the string and at the end of the string.
+
+
+Original Problem is from IOI (International Olympiad in Informatics). Modified statement, test case and constaints to be solved under 5 minutes.
