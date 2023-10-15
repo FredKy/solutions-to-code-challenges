@@ -1,0 +1,17 @@
+Crossing a N-sized square part of Manhattan from the top left (0,0) corner of the map down to the bottom right, you shall only move RIGHT or DOWN.
+Your friends live where the lower-case o are.
+What is the max amount of friends you can visit on your way?
+Input
+Line 1: An integer N for the side size of the square map
+Next N lines: N chars: The map with the locations of your friends
+Output
+An integer for the max number of visited friends
+Constraints
+1 < N < 16
+Example
+Input
+4
+o...
+....
+.oo.
+o..o
