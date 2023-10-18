@@ -1,0 +1,84 @@
+	Goal
+Given a string of SYMBOLS, you must output a WIDTHxHEIGHT-sized target that cycles through those symbols, starting from the edge.
+Input
+Line 1: A string of symbols
+Line 2: Two space-separated integers WIDTH and HEIGHT
+Output
+HEIGHT lines: The ASCII art of the target, row by row
+Constraints
+0 < WIDTH, HEIGHT ≤ 100
+0 < length of SYMBOLS ≤ 32
+Example
+Input
+#O
+3 3
+Output
+###
+#O#
+###
+
+
+#O
+5 5
+#####
+#OOO#
+#O#O#
+#OOO#
+#####
+
+#O
+1 1
+#
+
+#O
+5 3
+#####
+#OOO#
+#####
+
+#O
+3 5
+###
+#O#
+#O#
+#O#
+###
+
+#O
+6 6
+######
+#OOOO#
+#O##O#
+#O##O#
+#OOOO#
+######
+
+ABCDEF
+11 11
+AAAAAAAAAAA
+ABBBBBBBBBA
+ABCCCCCCCBA
+ABCDDDDDCBA
+ABCDEEEDCBA
+ABCDEFEDCBA
+ABCDEEEDCBA
+ABCDDDDDCBA
+ABCCCCCCCBA
+ABBBBBBBBBA
+AAAAAAAAAAA
+
+#@%<>O
+20 13
+####################
+#@@@@@@@@@@@@@@@@@@#
+#@%%%%%%%%%%%%%%%%@#
+#@%<<<<<<<<<<<<<<%@#
+#@%<>>>>>>>>>>>><%@#
+#@%<>OOOOOOOOOO><%@#
+#@%<>O########O><%@#
+#@%<>OOOOOOOOOO><%@#
+#@%<>>>>>>>>>>>><%@#
+#@%<<<<<<<<<<<<<<%@#
+#@%%%%%%%%%%%%%%%%@#
+#@@@@@@@@@@@@@@@@@@#
+####################
