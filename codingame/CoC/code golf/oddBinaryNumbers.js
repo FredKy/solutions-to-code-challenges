@@ -1,0 +1,1 @@
+for(N=(r=readline)(s=0);N--;){n=parseInt(r(),2);s+=n%2?n:0}print(s)
