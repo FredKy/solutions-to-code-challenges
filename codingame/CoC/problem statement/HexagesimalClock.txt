@@ -1,0 +1,46 @@
+
+A contribution by Bon[]Crayon
+ Approved by LeoTigers,LegendNeverDiesandArzugar
+ 	Goal
+This ascii graph represent an 24 hour binary coded sexagesimal clock.
+
++--+
+|.*|
+|.*|
+|*.|
+|**|
+|*.|
+|*.|
++--+
+
+It is indicated 15:52.
+
+To understand how to read the indicated time, study the next lines:
+
+HM
+.* 32
+.* 16
+*. 08
+** 04
+*. 02
+*. 01
+
+You get a special clock, you must format the indicated time to the 24 hour standard notation.
+A clock can be broken, so output "out of order".
+Input
+Six lines of two characters.
+The characters are only '.' or '*'.
+Output
+One line, which could be:
+HH:MM (ex: 02:05) or "out of order"
+Constraints
+Example
+Input
+.*
+**
+..
+..
+.*
+..
+Output
+16:50
